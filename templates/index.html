@@ -1,0 +1,41 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('.static', filename='css/styles.css')}}">
+
+<div class="container">
+    <div class="jumbotron" style="background-image: linear-gradient(to right, #386C0B, #31D843) !important;">
+        <h2 style="color:#fff; text-align: center;">Biological Gender Classification</h2>
+        <p style="color:#fff; text-align: center;">Classify Biological Gender by English Name</p>
+    </div>
+</div>
+
+<div class="container" style="min-height: 80vh;">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-image: linear-gradient(to right, #386C0B, #31D843); text-align: center; color: #fff">Enter an English name</div>
+                <div class="panel-body text-center">
+                    <!-- Main Input For Receiving Query to our ML -->
+                    <form action="{{ url_for('predict')}}" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="name_query" class="form-control" placeholder="Name" required>
+                        </div>
+                        <div style="margin-top: 10px;"></div> <!-- Add some space -->
+                        {% if error %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary">Predict</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+{% endblock %}
